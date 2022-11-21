@@ -1,0 +1,19 @@
+{
+    "name": "CurrenciesEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:dbc2e4f1217ffcf449ac9a043e5c1686",
+        "GUID:7db0ec06f687b9c4b9053cfbbe276f7c"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
