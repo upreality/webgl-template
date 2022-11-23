@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Features.Purchases.domain.model;
 using Features.Purchases.domain.repositories;
 using UniRx;
 using UnityEngine;
@@ -14,10 +15,11 @@ namespace Features.Purchases.data
 
         private readonly Dictionary<string, ReactiveProperty<bool>> purchasedStateProcessors = new();
 
-        public int GetCost(string purchaseId)
+        public CurrencyPurchaseData GetData(string purchaseId)
         {
             var entity = entitiesDao.FindById(purchaseId);
-            return Mathf.Max(entity.currencyCost, 0);
+            var cost = Mathf.Max(entity.currencyCost, 0);
+            return new CurrencyPurchaseData(cost, entity.currencyId);
         }
 
         public void SetPurchased(string purchaseId)

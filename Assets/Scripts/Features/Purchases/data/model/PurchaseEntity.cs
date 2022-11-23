@@ -1,7 +1,8 @@
 ﻿using System;
-using Features.Balance.domain;
+using Features.Currencies.data;
 using UnityEngine;
 using Utils.AutoId;
+using Utils.StringSelector;
 
 namespace Features.Purchases.data.model
 {
@@ -15,7 +16,9 @@ namespace Features.Purchases.data.model
         public string enName;
         public string enDescription;
         public int currencyCost = 0;
-        public string currencyId = CurrencyType.Primary;
+        //Attribute creates cyclic dependency
+        [StringSelector(typeof(SOCurrencyRepository))] 
+        public string currencyId;
         public int rewardedVideoCount = 0;
         public Sprite image;
     }

@@ -1,10 +1,10 @@
-﻿using Features.Balance.domain;
-using Features.Balance.domain.repositories;
-using Features.Currencies.presentation;
+﻿using Features.Balance.domain.repositories;
+using Features.Currencies.data;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Utils.StringSelector;
 using Zenject;
 
 namespace Features.Balance.presentation.ui
@@ -12,7 +12,8 @@ namespace Features.Balance.presentation.ui
     public class ReactiveBalanceText: MonoBehaviour
     {
         [SerializeField] private Text text;
-        [SerializeField] private NCurrencyType currencyType;
+        [SerializeField, StringSelector(typeof(SOCurrencyRepository))] 
+        private string currencyId;
         [Inject] private IBalanceRepository balanceRepository;
         [SerializeField] private UnityEvent onUpdateText;
 
@@ -23,7 +24,7 @@ namespace Features.Balance.presentation.ui
         }
 
         private void Start() => balanceRepository
-            .GetBalanceFlow(currencyType.ID)
+            .GetBalanceFlow(currencyId)
             .Subscribe(UpdateBalance)
             .AddTo(this);
 

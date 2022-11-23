@@ -1,9 +1,10 @@
 using System.Collections;
 using Features.Balance.domain.repositories;
-using Features.Coins.domain;
-using Features.Currencies.presentation;
+using Features.Collectables.domain;
+using Features.Currencies.data;
 using UnityEngine;
 using Utils.AutoId;
+using Utils.StringSelector;
 using Zenject;
 
 namespace Features.Collectables.presentation
@@ -14,7 +15,9 @@ namespace Features.Collectables.presentation
         [Inject] private IBalanceRepository balanceRepository;
 
         [SerializeField] private int reward = 100;
-        [SerializeField] private NCurrencyType rewardCurrency;
+        
+        [SerializeField, StringSelector(typeof(SOCurrencyRepository))] 
+        private string currencyId;
         
         [SerializeField] private GameObject unOpened;
         [SerializeField] private GameObject opened;
@@ -43,7 +46,7 @@ namespace Features.Collectables.presentation
             unOpened.SetActive(false);
             opened.SetActive(true);
             collectableRepository.Collect(collectableId);
-            balanceRepository.Add(reward, rewardCurrency.ID);
+            balanceRepository.Add(reward, currencyId);
             yield return new WaitForSeconds(lookDelay);
             disappearParticles.Play();
             yield return new WaitForSeconds(disappearDelay);

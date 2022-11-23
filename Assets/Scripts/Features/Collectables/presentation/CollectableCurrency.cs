@@ -1,10 +1,11 @@
-using Features.Balance.domain;
 using Features.Balance.presentation;
-using Features.Coins.domain;
+using Features.Collectables.domain;
+using Features.Currencies.data;
 using ModestTree;
 using UnityEngine;
 using Utils.AutoId;
 using Utils.PlayerTrigger;
+using Utils.StringSelector;
 using Zenject;
 
 namespace Features.Collectables.presentation
@@ -13,12 +14,14 @@ namespace Features.Collectables.presentation
     {
         [Inject] private AddBalanceNavigator addBalanceNavigator;
         [Inject] private ICollectableRepository collectableRepository;
-        [SerializeField] private GameObject target;
+
+        [SerializeField, AutoId] private string collectableId = "";
+        [SerializeField] private int amount = 1;
+        [SerializeField, StringSelector(typeof(SOCurrencyRepository))] 
+        private string currencyId;
         [SerializeField] private ParticleSystem collectParticles;
         [SerializeField] private Animator animator;
-        [SerializeField] private string currencyId = CurrencyType.Primary;
         [SerializeField] private string trigger = "collect";
-        [SerializeField, AutoId] private string collectableId = "";
 
         private void Start()
         {
@@ -30,9 +33,13 @@ namespace Features.Collectables.presentation
 
         protected override void OnPlayerEntersTrigger()
         {
-            animator.SetTrigger(trigger);
-            collectParticles.Play();
-            addBalanceNavigator.AddBalance(1, currencyType);
+            if (animator != null)
+                animator.SetTrigger(trigger);
+            
+            if (collectParticles != null)
+                collectParticles.Play();
+            
+            addBalanceNavigator.AddBalance(amount, currencyId);
             if (collectableId.IsEmpty())
                 return;
 

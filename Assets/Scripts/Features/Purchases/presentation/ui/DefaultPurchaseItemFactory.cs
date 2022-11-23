@@ -6,7 +6,7 @@ namespace Features.Purchases.presentation.ui
 {
     public class DefaultPurchaseItemFactory : IPurchaseItemFactory
     {
-        [Inject] private CoinsPurchaseItem.Factory coinsPurchaseItemFactory;
+        [Inject] private CurrencyPurchaseItem.Factory coinsPurchaseItemFactory;
         [Inject] private RewardedVideoPurchaseItem.Factory rewardedVideoItemFactory;
 
         public PurchaseItem Create(PurchaseType type) => type switch

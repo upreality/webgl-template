@@ -14,7 +14,9 @@ namespace Features.Balance.presentation
 
         public void AddBalance(int amount, string currencyId)
         {
-            playSoundNavigator.Play(collectSound);
+            if (collectSound != null)
+                playSoundNavigator.Play(collectSound);
+            
             balanceRepository?.Add(amount, currencyId);
         }
     }

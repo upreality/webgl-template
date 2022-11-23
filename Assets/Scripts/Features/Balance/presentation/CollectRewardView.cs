@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using Features.Balance.domain;
 using Features.Balance.domain.repositories;
-using Features.Currencies.presentation;
+using Features.Currencies.data;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils.StringSelector;
 using Zenject;
 
 namespace Features.Balance.presentation
@@ -20,7 +21,8 @@ namespace Features.Balance.presentation
         [SerializeField] private int counterCycleDuration = 0;
         [SerializeField] private int counterStartDelay = 0;
         [SerializeField] private int counterStep = 1;
-        [SerializeField] private NCurrencyType rewardCurrency;
+        [SerializeField, StringSelector(typeof(SOCurrencyRepository))] 
+        private string currencyId;
 
         private int multiplier = 1;
 
@@ -30,11 +32,11 @@ namespace Features.Balance.presentation
             multiplierRoot.SetActive(false);
             if (!withMultiplier)
             {
-                collectReward.Collect(rewardCurrency.ID);
+                collectReward.Collect(currencyId);
                 return;
             }
 
-            collectReward.Collect(rewardCurrency.ID, multiplier);
+            collectReward.Collect(currencyId, multiplier);
         }
 
         private void OnEnable()

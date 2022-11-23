@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Features.Purchases.presentation.ui
 {
-    public class CoinsPurchaseItem: PurchaseItem
+    public class CurrencyPurchaseItem: PurchaseItem
     {
         [Inject] private ICurrencyPurchaseRepository currencyPurchaseRepository;
         
@@ -15,10 +15,10 @@ namespace Features.Purchases.presentation.ui
         protected override void Setup(string purchaseId, bool purchasedState)
         {
             base.Setup(purchaseId, purchasedState);
-            costText.text = currencyPurchaseRepository.GetCost(purchaseId).ToString();
+            costText.text = currencyPurchaseRepository.GetData(purchaseId).Cost.ToString();
             cost.SetActive(!purchasedState);
         }
 
-        public class Factory : PlaceholderFactory<CoinsPurchaseItem> { }
+        public class Factory : PlaceholderFactory<CurrencyPurchaseItem> { }
     }
 }

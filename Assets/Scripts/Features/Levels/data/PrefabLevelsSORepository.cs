@@ -7,11 +7,10 @@ using UnityEngine;
 namespace Features.Levels.data
 {
     [CreateAssetMenu(
-        menuName = "Levels/PrefabLevelsScriptableObjectRepository",
-        fileName = "PrefabLevelsScriptableObjectRepository")
+        menuName = "Levels/PrefabLevelsSORepository",
+        fileName = "PrefabLevelsSORepository")
     ]
-    public class PrefabLevelsScriptableObjectRepository : ScriptableObject, ILevelsRepository,
-        ILevelSceneObjectRepository
+    public class PrefabLevelsSORepository : ScriptableObject, ILevelsRepository, ILevelSceneObjectRepository
     {
         [SerializeField] private List<GameObject> scenePrefabs = new();
 
@@ -19,6 +18,9 @@ namespace Features.Levels.data
 
         public Level GetLevel(int levelId) => new(levelId, levelId);
 
-        public GameObject GetLevelScene(int levelId) => scenePrefabs[levelId];
+        public GameObject GetLevelScene(int levelId)
+        {
+            return scenePrefabs[levelId];
+        }
     }
 }

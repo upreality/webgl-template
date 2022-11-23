@@ -10,7 +10,7 @@ namespace Features.Levels._di
     [CreateAssetMenu(menuName = "Installers/LevelsBaseInstaller")]
     public class LevelsBaseInstaller : ScriptableObjectInstaller
     {
-        [SerializeField] private PrefabLevelsScriptableObjectRepository levelsRepository;
+        [SerializeField] private PrefabLevelsSORepository levelsRepository;
         public override void InstallBindings()
         {
             //Daos
@@ -33,8 +33,7 @@ namespace Features.Levels._di
 
             Container.Bind<CurrentLevelRepository.IDefaultLevelIdDao>().To<HardcodedDefaultLevelIdDao>().AsSingle();
             //Repositories
-            Container.Bind<ILevelsRepository>().FromInstance(levelsRepository).AsCached();
-            Container.Bind<ILevelSceneObjectRepository>().To<PrefabLevelsScriptableObjectRepository>().AsCached();
+            Container.BindInterfacesAndSelfTo<PrefabLevelsSORepository>().FromInstance(levelsRepository).AsCached();
             Container.Bind<ICurrentLevelRepository>().To<CurrentLevelRepository>().AsSingle();
             Container.Bind<ILevelCompletedStateRepository>().To<LevelCompletedStateRepository>().AsSingle();
             

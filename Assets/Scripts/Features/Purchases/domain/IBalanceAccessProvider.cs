@@ -5,7 +5,7 @@ namespace Features.Purchases.domain
 {
     public interface IBalanceAccessProvider
     {
-        IObservable<bool> CanRemove(int value, string currencyID);
-        IObservable<bool> Remove(int value, string currencyID);
+        IObservable<bool> CanRemove(CurrencyPurchaseData data);
+        IObservable<bool> Remove(CurrencyPurchaseData data);
     }
 }

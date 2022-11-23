@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Features.Coins.domain
+﻿namespace Features.Collectables.domain
 {
     public interface ICollectableRepository
     {

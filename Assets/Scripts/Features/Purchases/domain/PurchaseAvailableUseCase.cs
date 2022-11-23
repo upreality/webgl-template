@@ -26,8 +26,8 @@ namespace Features.Purchases.domain
             switch (purchase.Type)
             {
                 case PurchaseType.Currency:
-                    var coins = currencyPurchaseRepository.GetCost(purchaseId);
-                    return balance.CanRemove(coins, PurchaseType.Currency);
+                    var data = currencyPurchaseRepository.GetData(purchaseId);
+                    return balance.CanRemove(data);
                 case PurchaseType.RewardedVideo:
                     var currentWatchesFlow = videoPurchaseRepository.GetRewardedVideoCurrentWatchesCount(purchaseId);
                     var requiredWatches = videoPurchaseRepository.GetRewardedVideoWatchesCount(purchaseId);

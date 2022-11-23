@@ -1,10 +1,11 @@
-﻿using Features.Coins.data;
+﻿using Features.Collectables.data;
 using UnityEngine;
 using Zenject;
 
-namespace Features.Coins._di
+namespace Features.Collectables._di
 {
-    public class CollectablesInstaller: MonoInstaller
+    [CreateAssetMenu(menuName = "Installers/CollectablesInstaller")]
+    public class CollectablesInstaller: ScriptableObjectInstaller
     {
         public override void InstallBindings()
         {

@@ -2,13 +2,14 @@
 using Features.Purchases.domain;
 using Features.Purchases.presentation.ui;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Features.Purchases._di
 {
     public class PurchasesPresentationInstaller : MonoInstaller
     {
-        [SerializeField] private CoinsPurchaseItem coinsPurchaseItemPrefab;
+        [FormerlySerializedAs("coinsPurchaseItemPrefab")] [SerializeField] private CurrencyPurchaseItem currencyPurchaseItemPrefab;
         [SerializeField] private RewardedVideoPurchaseItem rewardedVideoPurchaseItemPrefab;
 
         public override void InstallBindings()
@@ -21,8 +22,8 @@ namespace Features.Purchases._di
                 .FromNewComponentOnNewGameObject().AsTransient();
             //Item Factories
             Container
-                .BindFactory<CoinsPurchaseItem, CoinsPurchaseItem.Factory>()
-                .FromComponentInNewPrefab(coinsPurchaseItemPrefab);
+                .BindFactory<CurrencyPurchaseItem, CurrencyPurchaseItem.Factory>()
+                .FromComponentInNewPrefab(currencyPurchaseItemPrefab);
             Container
                 .BindFactory<RewardedVideoPurchaseItem, RewardedVideoPurchaseItem.Factory>()
                 .FromComponentInNewPrefab(rewardedVideoPurchaseItemPrefab);

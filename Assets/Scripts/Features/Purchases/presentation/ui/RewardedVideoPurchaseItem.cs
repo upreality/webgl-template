@@ -24,7 +24,7 @@ namespace Features.Purchases.presentation.ui
 
             var watchesCount = rewardedVideoPurchaseRepository.GetRewardedVideoCurrentWatchesCount(purchaseId);
             var requireWatches = rewardedVideoPurchaseRepository.GetRewardedVideoCurrentWatchesCount(purchaseId);
-            watchesText.text = $"{watchesCount.ToString()}/{requireWatches.ToString()}";
+            watchesText.text = $"{watchesCount}/{requireWatches}";
             requireWatch.SetActive(true);
         }
 

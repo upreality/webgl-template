@@ -1,7 +1,7 @@
-﻿using Features.Coins.domain;
+﻿using Features.Collectables.domain;
 using Plugins.FileIO;
 
-namespace Features.Coins.data
+namespace Features.Collectables.data
 {
     public class LocalStorageCollectableRepository : ICollectableRepository
     {

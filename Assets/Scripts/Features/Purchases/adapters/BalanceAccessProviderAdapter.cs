@@ -12,13 +12,13 @@ namespace Features.Purchases.adapters
     {
         [Inject] private DecreaseBalanceUseCase decreaseBalanceUseCase;
 
-        public IObservable<bool> CanRemove(int value, string currencyID) => 
-            decreaseBalanceUseCase.GetCanDecreaseFlow(value, currencyID);
+        public IObservable<bool> CanRemove(CurrencyPurchaseData data) => 
+            decreaseBalanceUseCase.GetCanDecreaseFlow(data.Cost, data.CurrencyId);
 
-        public IObservable<bool> Remove(int value, string currencyID)
+        public IObservable<bool> Remove(CurrencyPurchaseData data)
         {
             return decreaseBalanceUseCase
-                .Decrease(value, currencyID)
+                .Decrease(data.Cost, data.CurrencyId)
                 .Select(result => result == DecreaseBalanceResult.Success);
         }
     }

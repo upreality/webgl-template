@@ -1,6 +1,6 @@
-using Features.Balance.domain;
-using Features.Currencies.presentation;
+using Features.Currencies.data;
 using UnityEngine;
+using Utils.StringSelector;
 using Zenject;
 
 namespace Features.Balance.presentation
@@ -8,13 +8,14 @@ namespace Features.Balance.presentation
     public class AddBalanceHandler : MonoBehaviour
     {
         [SerializeField] private int amount;
-        [SerializeField] private NCurrencyType currencyType;
+        [SerializeField, StringSelector(typeof(SOCurrencyRepository))] 
+        private string currencyId;
         [Inject] private AddBalanceNavigator balanceNavigator;
 
         public void AddBalance()
         {
             if (balanceNavigator == null) return;
-            balanceNavigator.AddBalance(amount, currencyType.ID);
+            balanceNavigator.AddBalance(amount, currencyId);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Features.Purchases.domain.model;
 using Features.Purchases.domain.repositories;
 using UniRx;
 using Zenject;
@@ -20,15 +21,18 @@ namespace Features.Purchases.domain
 
         private IObservable<CurrencyPurchaseResult> ExecuteNewPurchase(string purchaseId)
         {
-            var cost = currencyPurchaseRepository.GetCost(purchaseId);
+            var data = currencyPurchaseRepository.GetData(purchaseId);
             var type = purchaseRepository.GetById(purchaseId).Type;
+            if (type != PurchaseType.Currency)
+                return Observable.Return(CurrencyPurchaseResult.Failure);
+            
             return balanceAccessProvider
-                .CanRemove(cost, type)
+                .CanRemove(data)
                 .Take(1)
                 .SelectMany(enoughBalance =>
                     {
                         if (!enoughBalance) return Observable.Return(CurrencyPurchaseResult.Failure);
-                        return balanceAccessProvider.Remove(cost, type).Select(result =>
+                        return balanceAccessProvider.Remove(data).Select(result =>
                             {
                                 if (!result)
                                     return CurrencyPurchaseResult.Failure;

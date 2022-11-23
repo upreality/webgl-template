@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 520b531ab05b45eaa44a983aaf7e1af5, type: 3}
-  m_Name: PrefabLevelsScriptableObjectRepository
+  m_Script: {fileID: 11500000, guid: 74aeb3d3cfddf4d49899e8a665d53e01, type: 3}
+  m_Name: Currencies Base Installer
   m_EditorClassIdentifier: 
-  scenePrefabs: []
+  currencyRepository: {fileID: 11400000, guid: ca95d1079e9f2474fb6efb3a2475fa1c, type: 2}
