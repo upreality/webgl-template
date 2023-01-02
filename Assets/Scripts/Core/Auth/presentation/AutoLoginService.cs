@@ -1,13 +1,16 @@
 ﻿using System;
 using Core.Auth.domain;
 using UniRx;
+using UnityEngine;
 using Zenject;
 
 namespace Core.Auth.presentation
 {
     public class AutoLoginService : IInitializable, IDisposable
     {
+        [Inject] private AuthDataNavigator authDataNavigator;
         [Inject] private IAuthRepository authRepository;
+
         private IDisposable disposable;
 
         public void Initialize()
@@ -15,12 +18,15 @@ namespace Core.Auth.presentation
             disposable = authRepository
                 .GetLoggedInFlow()
                 .Where(loggedIn => !loggedIn)
-                .Subscribe(_ => authRepository.Login(() => { }, () => { }));
+                .Select(_ => authDataNavigator.RequestAuthData())
+                .Switch()
+                .Select(data => authRepository.Login(data))
+                .Switch()
+                .Subscribe(loginResult =>
+                    Debug.Log($"Login result: {loginResult}")
+                );
         }
 
-        public void Dispose()
-        {
-            disposable?.Dispose();
-        }
+        public void Dispose() => disposable?.Dispose();
     }
 }

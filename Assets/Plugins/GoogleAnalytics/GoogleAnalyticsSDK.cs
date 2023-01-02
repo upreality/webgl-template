@@ -25,7 +25,7 @@ public static class GoogleAnalyticsSDK
 #endif
     }
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL && !UNITY_EDITOR && GOOGLE_ANALYTICS
     [DllImport("__Internal")]
     private static extern void Send(string eventName);
     [DllImport("__Internal")]

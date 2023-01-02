@@ -2,7 +2,7 @@
 using UniRx;
 using Zenject;
 #if YANDEX_SDK && !UNITY_EDITOR
-using Plugins.YSDK;
+using Plugins.Platforms.YSDK;
 #endif
 
 namespace Core.Ads.presentation.InterstitialAdNavigator.decorators
@@ -26,7 +26,7 @@ namespace Core.Ads.presentation.InterstitialAdNavigator.decorators
         {
 #if YANDEX_SDK && !UNITY_EDITOR
             var hit = "ShowInterstitial/";
-            hit += result.isSuccess ? "Success" : "NotSuccess";
+            hit += result.IsSuccess ? "Success" : "NotSuccess";
             instance.AddHit(hit);
 #endif
         }

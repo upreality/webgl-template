@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Auth.domain.model;
 
 namespace Core.Auth.domain
 {
@@ -6,6 +7,6 @@ namespace Core.Auth.domain
     {
         public IObservable<bool> GetLoggedInFlow();
         public string LoginUserId { get; }
-        public void Login(Action onSuccess, Action onFailed);
+        public IObservable<bool> Login(AuthData authData);
     }
 }

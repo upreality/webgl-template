@@ -1,14 +1,14 @@
 ﻿using Core.User.domain;
+using TMPro;
 using UniRx;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace Core.User.presentation
 {
     public class UserNameText : MonoBehaviour
     {
-        [SerializeField] private Text text;
+        [SerializeField] private TMP_Text text;
         [Inject] private ICurrentUserNameRepository currentUserNameRepository;
 
         private void Start() => currentUserNameRepository

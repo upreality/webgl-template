@@ -1,5 +1,6 @@
 ﻿using System;
 using Core.Auth.domain;
+using Core.Auth.domain.model;
 using UniRx;
 
 namespace Core.Auth.data
@@ -8,6 +9,6 @@ namespace Core.Auth.data
     {
         public string LoginUserId => "";
         public IObservable<bool> GetLoggedInFlow() => Observable.Return(true);
-        public void Login(Action onSuccess, Action onFailed) => onSuccess?.Invoke();
+        public IObservable<bool> Login(AuthData authData) => Observable.Return(true);
     }
 }

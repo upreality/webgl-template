@@ -76,7 +76,12 @@
         <script>
               function requestPlayerId() {
                   sdk.getPlayer({ scopes: false }).then(_player => {
-                      var playerId = _player.getUniqueID()
+                          if(_player.getMode() === 'lite') {
+                              var playerId = '';
+                          } else {
+                              var playerId = _player.getUniqueID();
+                          }
+
                       window.unityInstance.SendMessage('YandexSDK', 'OnHandlePlayerId', playerId);
                   }).catch(err => {
                         console.log('Error while requestPlayerId:', err);
