@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2edbf142b3e446eabe0e22dbdcc81dba, type: 3}
   m_Name: WS Prod Settings
   m_EditorClassIdentifier: 
-  host: 81.163.28.56
-  port: 8080
+  host: denisrebrof.com
+  port: 8443
   path: spring-boot-test-plain/websocket
   logConnection: 1
   logMessages: 1

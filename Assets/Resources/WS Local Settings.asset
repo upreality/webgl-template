@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2edbf142b3e446eabe0e22dbdcc81dba, type: 3}
   m_Name: WS Local Settings
   m_EditorClassIdentifier: 
+  protocol: 1
   host: localhost
   port: 8080
   path: websocket
