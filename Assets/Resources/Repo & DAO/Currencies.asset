@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Currencies
   m_EditorClassIdentifier: 
   definedCurrencies:
-  - Id: coins
+  - Id: primary
     Name: Coins
     Description: Just usual golden coins
     Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
