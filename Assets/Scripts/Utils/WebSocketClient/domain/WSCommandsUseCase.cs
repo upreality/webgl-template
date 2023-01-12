@@ -44,7 +44,7 @@ namespace Utils.WebSocketClient.domain
         private static string ConvertParams<TP>(TP source)
         {
             var type = typeof(TP);
-            var isPrimitiveType = type.IsPrimitive || (type == typeof(string));
+            var isPrimitiveType = type.IsPrimitive || type == typeof(string);
             return isPrimitiveType ? source.ToString() : JsonUtility.ToJson(source);
         }
 

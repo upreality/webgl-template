@@ -13,5 +13,7 @@
         public const long TicTacTurnUpdates = 12L;
         public const long TicTacMakeTurn = 13L;
         public const long TicTacFinished = 14L;
+        
+        public const long Balance = 15L;
     }
 }
