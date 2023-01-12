@@ -26,6 +26,7 @@ namespace WSExample.TicTac.presentation
         [Header("Finished")] [SerializeField] private GameObject finishedScreen;
         [SerializeField] private GameObject looseMark;
         [SerializeField] private GameObject winMark;
+        [SerializeField] private TMP_Text earned;
         [SerializeField] private GameObject drawMark;
 
         [SerializeField] private GameObject opponentTurnPlaceholder;
@@ -44,7 +45,8 @@ namespace WSExample.TicTac.presentation
             isPlayerTurn = false,
             isWinner = false,
             isDraw = false,
-            opponentNick = string.Empty
+            opponentNick = string.Empty,
+            reward = 0
         };
 
         private void OnEnable()
@@ -82,8 +84,9 @@ namespace WSExample.TicTac.presentation
                 UpdateCellState(i, cellStates[i]);
 
             finishedScreen.SetActive(state.gameState == 2);
-            winMark.SetActive(state.isWinner && !state.isDraw);
-            looseMark.SetActive(!state.isWinner && !state.isDraw);
+            winMark.SetActive(state.isWinner);
+            earned.gameObject.SetActive(false);
+            looseMark.SetActive(!state.isWinner);
             drawMark.SetActive(state.isDraw);
             yourTurnPlaceholder.SetActive(state.isPlayerTurn);
             opponentTurnPlaceholder.SetActive(!state.isPlayerTurn);
@@ -108,6 +111,8 @@ namespace WSExample.TicTac.presentation
         {
             finishedScreen.SetActive(data.finished);
             winMark.SetActive(data.isWinner && !data.isDraw);
+            earned.gameObject.SetActive(data.isWinner);
+            earned.text = $"Earned {data.reward} coins!";
             looseMark.SetActive(!data.isWinner && !data.isDraw);
             drawMark.SetActive(data.isDraw);
         }
@@ -184,6 +189,7 @@ namespace WSExample.TicTac.presentation
             public bool isPlayerTurn;
             public bool isWinner;
             public bool isDraw;
+            public long reward;
             public string opponentNick;
         }
 
@@ -200,6 +206,7 @@ namespace WSExample.TicTac.presentation
             public bool finished;
             public bool isWinner;
             public bool isDraw;
+            public long reward;
         }
     }
 }
