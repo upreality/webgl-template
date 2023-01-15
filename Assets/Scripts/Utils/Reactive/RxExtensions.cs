@@ -1,5 +1,6 @@
 ﻿using System;
 using UniRx;
+using UnityEngine;
 
 namespace Utils.Reactive
 {
@@ -36,6 +37,17 @@ namespace Utils.Reactive
                     Tuple.Create(default(TSource), default(TSource)),
                     (previous, current) => Tuple.Create(previous.Item2, current))
                 .Select(t => resultSelector(t.Item1, t.Item2));
+        }
+        
+        public static void CreateTimer(this Component component, int timeMs, Action onTimer)
+        {
+            var timerSpan = TimeSpan.FromMilliseconds(timeMs);
+            Observable
+                .Timer(timerSpan)
+                .Repeat()
+                .StartWith(0)
+                .Subscribe(_ => onTimer.Invoke())
+                .AddTo(component);
         }
     }
 }
