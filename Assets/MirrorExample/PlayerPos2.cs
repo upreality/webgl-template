@@ -1,66 +1,78 @@
 ﻿using Mirror;
+using UniRx;
 using UnityEngine;
-using Utils.Reactive;
 
 namespace MirrorExample
 {
-    public class PlayerPos2 : PredictionBehaviour2<PlayerPosState>
+    public class PlayerPos2 : PredictionBehaviour2<PlayerPosState2>
     {
-        [SerializeField] protected int syncInputFrequencyMs = 50;
         [SerializeField] protected float speed = 5;
 
-        private float inputX;
-        private float inputY;
+        private readonly Subject<Input> inputSubject = new();
 
-        private void Update()
-        {
-            if (isOwned)
-            {
-                inputX = Input.GetAxis("Horizontal");
-                inputY = Input.GetAxis("Vertical");
-            }
-
-            transform.position += new Vector3(
-                x: inputX * speed * Time.deltaTime,
-                y: 0f,
-                z: inputY * speed * Time.deltaTime
-            );
-        }
+        private void Start() => Observable
+            .EveryUpdate()
+            .CombineLatest(inputSubject, (l, input) => input)
+            .Subscribe(ApplyInput)
+            .AddTo(this);
 
         public override void OnStartAuthority()
         {
             base.OnStartAuthority();
-            this.CreateTimer(syncInputFrequencyMs, () => CmdSendInput(inputX, inputY));
+            inputSubject
+                .DistinctUntilChanged()
+                .Subscribe(CmdSendInput)
+                .AddTo(this);
+            Observable
+                .EveryUpdate()
+                .Select(_ => GetLocalInput())
+                .DistinctUntilChanged()
+                .Subscribe(input => inputSubject.OnNext(input))
+                .AddTo(this);
         }
 
-        protected override PlayerPosState GetState() => new(transform.position);
+        protected override PlayerPosState2 GetState() => new(transform.position);
 
-        protected override void SetState(PlayerPosState state) => transform.position = state.Position;
+        protected override void SetState(PlayerPosState2 state)
+        {
+            base.SetState(state);
+            // transform.position = state.Position;
+        }
+
+        private void ApplyInput(Input input)
+        {
+            transform.position += new Vector3(
+                x: input.X * speed * Time.deltaTime,
+                y: 0f,
+                z: input.Y * speed * Time.deltaTime
+            );
+        }
+
+        private static Input GetLocalInput() => new()
+        {
+            X = GetAxisInput("Horizontal"),
+            Y = GetAxisInput("Vertical")
+        };
+
+        private static int GetAxisInput(string axisName)
+        {
+            var axisValue = UnityEngine.Input.GetAxis(axisName);
+            if (Mathf.Abs(axisValue) < 0.001f)
+                return 0;
+
+            return axisValue > 0 ? 1 : -1;
+        }
 
         [Command]
-        private void CmdSendInput(float x, float y)
-        {
-            inputX = x;
-            inputY = y;
-        }
+        private void CmdSendInput(Input input) => inputSubject.OnNext(input);
 
         [ClientRpc]
-        protected override void RpcOnSync(double timestamp, PlayerPosState state) => base.RpcOnSync(timestamp, state);
-    }
+        protected override void RpcOnSync(double timestamp, PlayerPosState2 state) => base.RpcOnSync(timestamp, state);
 
-    public struct PlayerPosState : IState<PlayerPosState>
-    {
-        public Vector3 Position;
-
-        public PlayerPosState(Vector3 position)
+        private struct Input
         {
-            Position = position;
+            public int X;
+            public int Y;
         }
-
-        public PlayerPosState GetDelta(PlayerPosState state) => new(state.Position - Position);
-
-        public PlayerPosState Multiply(float multiplier) => new(Position * multiplier);
-
-        public PlayerPosState ApplyDelta(PlayerPosState delta) => new(Position + delta.Position);
     }
 }

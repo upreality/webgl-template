@@ -12,6 +12,8 @@ namespace MirrorExample
 
         private readonly Dictionary<double, TState> chain = new();
 
+        private short maxLength;
+
         private readonly BehaviorSubject<TState> lastStateSubject;
 
         public IObservable<TState> LastState => lastStateSubject;
@@ -21,15 +23,24 @@ namespace MirrorExample
             //hide default constructor
         }
 
-        public PredictionChain(TState origin)
+        public PredictionChain(TState origin, short maxLength = 100)
         {
             this.origin = origin;
+            this.maxLength = maxLength;
             lastStateSubject = new BehaviorSubject<TState>(origin);
         }
 
         public void Set(double timestamp, TState state)
         {
             var timestamps = chain.Keys;
+            if (timestamps.Count >= maxLength)
+            {
+                var firstTimestamp = timestamps.Min();
+                origin = chain[firstTimestamp];
+                chain.Remove(firstTimestamp);
+                timestamps = chain.Keys;
+            }
+
             if (timestamps.IsEmpty() || timestamp >= timestamps.Max())
             {
                 chain[timestamp] = state;
@@ -61,7 +72,7 @@ namespace MirrorExample
             }
         }
 
-        private TState Get(double timestamp)
+        public TState Get(double timestamp)
         {
             if (chain.IsEmpty())
                 return origin;
@@ -79,19 +90,18 @@ namespace MirrorExample
             if (timestamp >= maxChainTimestamp)
                 return chain[maxChainTimestamp];
 
-            var closestTimestamps = timestamps
-                .OrderBy(chainTimestamp => Math.Abs(timestamp - chainTimestamp))
-                .ToList();
+            var fromTimestamp = GetOrderedTimestamps(ts => ts < timestamp).Last();
+            var toTimestamp = GetOrderedTimestamps(ts => ts > timestamp).First();
 
-            var fromTimestamp = closestTimestamps[0];
+            if (fromTimestamp > toTimestamp)
+                (fromTimestamp, toTimestamp) = (toTimestamp, fromTimestamp);
+
             var from = chain[fromTimestamp];
-
-            var toTimestamp = closestTimestamps[1];
             var to = chain[toTimestamp];
 
             var lerpAmount = (timestamp - fromTimestamp) / (toTimestamp - fromTimestamp);
             var amount = (float)lerpAmount;
-            var stateDelta = to.GetDelta(from).Multiply(amount);
+            var stateDelta = from.GetDelta(to).Multiply(amount);
             return from.ApplyDelta(stateDelta);
         }
 
@@ -99,7 +109,7 @@ namespace MirrorExample
         {
             var currentState = Get(timestamp);
             chain[timestamp] = state;
-            var stateDelta = state.GetDelta(currentState);
+            var stateDelta = currentState.GetDelta(state);
             var invalidStateTimestamps = GetOrderedTimestamps(t => t > timestamp);
 
             var lastTimestamp = timestamp;
