@@ -1,0 +1,20 @@
+{
+    "name": "PlayerState",
+    "rootNamespace": "",
+    "references": [
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:7db0ec06f687b9c4b9053cfbbe276f7c",
+        "GUID:4475ef04b04849a7aa237ba1cdd4bb67",
+        "GUID:9005bfbb0c104b87bbf5e897219e1b90"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

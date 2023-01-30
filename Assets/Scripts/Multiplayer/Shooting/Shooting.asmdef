@@ -1,0 +1,21 @@
+{
+    "name": "Shooting",
+    "rootNamespace": "",
+    "references": [
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:66c72e9bff9f42d99c9fe4f60c50c4f0",
+        "GUID:30817c1a0e6d646d99c048fc403f5979",
+        "GUID:ff2740e22d0e42ef84b033e0765e9313",
+        "GUID:6b6137039b0c4b039e163c4647765bcd"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
