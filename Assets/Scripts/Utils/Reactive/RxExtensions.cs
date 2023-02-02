@@ -6,7 +6,7 @@ namespace Utils.Reactive
 {
     public static class RxExtensions
     {
-        public static IObservable<TV> GetItemFlow<TK, TV>(this ReactiveDictionary<TK, TV> target, TK key)
+        public static IObservable<TV> GetItemFlow<TK, TV>(this IReadOnlyReactiveDictionary<TK, TV> target, TK key) 
         {
             var addFlow = target
                 .ObserveAdd()
@@ -21,7 +21,7 @@ namespace Utils.Reactive
         }
 
         public static IObservable<TV> GetItemFlow<TK, TV>(
-            this ReactiveDictionary<TK, TV> target,
+            this IReadOnlyReactiveDictionary<TK, TV> target,
             TK key,
             TV defaultItem)
         {

@@ -25,6 +25,10 @@ namespace Features.Cameras.data
 
         public IObservable<CamType> GetActiveCameraFlow() => activeCameraTypeSubject;
 
-        public void SetActiveCamera(CamType type) => activeCameraTypeSubject.OnNext(type);
+        public void SetActiveCamera(string cameraId)
+        {
+            var camType = cameraTypeRepository.Get(cameraId);
+            activeCameraTypeSubject.OnNext(camType);
+        }
     }
 }

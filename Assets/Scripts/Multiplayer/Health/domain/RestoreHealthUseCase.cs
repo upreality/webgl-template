@@ -5,13 +5,13 @@ namespace Multiplayer.Health.domain
 {
     public class RestoreHealthUseCase
     {
-        [Inject] private IPlayerHealthRepository playerHealthRepository;
+        [Inject] private IHealthHandlersRepository healthHandlersRepository;
         [Inject] private IMaxHealthRepository maxHealthRepository;
 
-        public void RestoreHealth()
+        public void RestoreHealth(string handlerId)
         {
             var maxHealth = maxHealthRepository.GetMaxHealth();
-            playerHealthRepository.SetHealth(maxHealth);
+            healthHandlersRepository.SetHealth(handlerId, maxHealth);
         }
     }
 }

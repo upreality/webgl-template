@@ -1,5 +1,6 @@
 ﻿using Mirror;
 using Multiplayer.Health.domain;
+using UnityEngine;
 using Zenject;
 
 namespace Multiplayer.Damage.presentation.Damageable
@@ -7,6 +8,7 @@ namespace Multiplayer.Damage.presentation.Damageable
     public class PlayerDamageable : NetworkBehaviour, IDamageable
     {
         [Inject] private DecreaseHealthUseCase decreaseHealthUseCase;
+        [SerializeField] private string playerId;
 
         public void TakeDamage(int damage) => RPC_TakeDamage(damage);
 
@@ -14,7 +16,7 @@ namespace Multiplayer.Damage.presentation.Damageable
         private void RPC_TakeDamage(int damage)
         {
             if (!isOwned) return;
-            decreaseHealthUseCase.DecreaseHealth(damage);
+            decreaseHealthUseCase.DecreaseHealth(playerId, damage);
         }
     }
 }

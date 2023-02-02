@@ -18,6 +18,6 @@ namespace Multiplayer.Health.data
         private IDisposable HandleRestoreHealth() => lifecycleEventRepository
             .GetLifecycleEvents()
             .Where(lifecycleEvent => lifecycleEvent == PlayerLifecycleEvent.Spawned)
-            .Subscribe(_ => restoreHealthUseCase.RestoreHealth());
+            .Subscribe(_ => restoreHealthUseCase.RestoreHealth(""));
     }
 }

@@ -7,15 +7,15 @@ namespace Multiplayer.Health.domain
 {
     public class DecreaseHealthUseCase
     {
-        [Inject] private IPlayerHealthRepository playerHealthRepository;
-        public DecreaseHealthResult DecreaseHealth(int amount)
+        [Inject] private IHealthHandlersRepository healthHandlersRepository;
+        public DecreaseHealthResult DecreaseHealth(string playerId, int amount)
         {
-            var currentHealth = playerHealthRepository.GetHealth();
+            var currentHealth = healthHandlersRepository.GetHealth(playerId);
             if (currentHealth <= 0)
                 return DecreaseHealthResult.NoHealth;
 
             currentHealth = Math.Max(0, currentHealth - amount);
-            playerHealthRepository.SetHealth(currentHealth);
+            healthHandlersRepository.SetHealth(playerId, currentHealth);
             return currentHealth > 0 ? DecreaseHealthResult.Decreased : DecreaseHealthResult.HealthRanOut;
         }
     }

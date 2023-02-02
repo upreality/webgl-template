@@ -9,15 +9,12 @@ namespace Multiplayer.Health.presentation.UI
     {
         [Inject] private RelativeHealthUseCase relativeHealthUseCase;
         [SerializeField] private Transform target;
+        [SerializeField] private string playerId;
 
         private void Start()
         {
-            // if (!this.GetPlayerId(out var userId))
-            //     return;
-            var userId = "";
-            
             relativeHealthUseCase
-                .GetRelativeHealthFlow(userId)
+                .GetRelativeHealthFlow(playerId)
                 .Subscribe(ApplyHealth)
                 .AddTo(this);
         }

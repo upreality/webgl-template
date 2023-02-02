@@ -25,7 +25,7 @@ namespace Multiplayer.MatchState.data
             {MatchStates.Playing, matchDurationTimer},
         };
 
-        public bool HasStateDuration(MatchStates state) => StatesToDurations.ContainsKey(state);
+        private bool HasStateDuration(MatchStates state) => StatesToDurations.ContainsKey(state);
 
         public bool GetStateDuration(MatchStates state, out int duration)
         {

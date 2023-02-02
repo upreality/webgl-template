@@ -14,7 +14,6 @@ namespace Multiplayer.Health._di
             //Data
             Container.Bind<IMaxHealthRepository>().To<MaxHealthOneHundredRepository>().AsSingle();
             Container.Bind<IPlayerHealthRepository>().To<PlayerHealthDefaultRepository>().AsSingle();
-            Container.Bind<IHealthHandlersRepository>().To<HealthHandlersDefaultRepository>().AsSingle();
             //Presentation
             Container.Bind<DecreaseHealthUseCase>().ToSelf().AsSingle();
             Container.Bind<IncreaseHealthUseCase>().ToSelf().AsSingle();

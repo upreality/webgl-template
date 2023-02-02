@@ -16,11 +16,10 @@ namespace Multiplayer.MatchState._di
         {
             //Data
             Container.Bind<IMatchStateDurationRepository>().FromInstance(stateSoRepository).AsSingle();
-            Container.Bind<IMatchStateRepository>().To<MatchStateDefaultRepository>().AsSingle();//Domain
-            Container.Bind<MatchStateUpdatesUseCase>().ToSelf().AsSingle();
+            //Domain
             Container.Bind<NextMatchStateUseCase>().ToSelf().AsSingle();
-            Container.Bind<MatchStateTimerStateFlowUseCase>().ToSelf().AsSingle();
-            Container.Bind<StartMatchStateUseCase>().ToSelf().AsSingle();
+            //Sync
+            Container.BindInterfacesAndSelfTo<MatchStateSyncHandler>().AsSingle();
         }
     }
 }
