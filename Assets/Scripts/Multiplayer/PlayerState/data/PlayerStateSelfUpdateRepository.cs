@@ -8,14 +8,14 @@ using Zenject;
 
 namespace Multiplayer.PlayerState.data
 {
-    [SceneSubscriptionHandler]
+    // [SceneSubscriptionHandler]
     public class PlayerStateSelfUpdateRepository : IPlayerStateRepository
     {
         [Inject] private PlayerStateUpdatesUseCase updatesUseCase;
 
         private readonly ReactiveProperty<PlayerStates> stateProperty = new(PlayerStates.None);
 
-        [SceneSubscription]
+        // [SceneSubscription]
         public IDisposable HandleUpdates() => updatesUseCase
             .GetPlayerStateUpdatesFlow()
             .Subscribe(state => stateProperty.Value = state);

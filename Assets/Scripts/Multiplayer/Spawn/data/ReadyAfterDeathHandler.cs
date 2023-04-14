@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Multiplayer.Spawn.data
 {
-    [SceneSubscriptionHandler]
+    // [SceneSubscriptionHandler]
     public class ReadyAfterDeathHandler
     {
         [Inject] private ReadyAfterDeathUseCase readyAfterDeathUseCase;
@@ -16,7 +16,7 @@ namespace Multiplayer.Spawn.data
 
         private readonly int readyDelay = 1;
 
-        [SceneSubscription]
+        // [SceneSubscription]
         private IDisposable BecomeReadyAfterDeathSubscription() => readyAfterDeathUseCase
             .GetReadyCommandFlow(readyDelay)
             .Subscribe(_ =>

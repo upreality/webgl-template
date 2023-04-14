@@ -12,7 +12,7 @@ namespace Utils.Misc
 
         private void Start() => animator = GetComponent<Animator>();
 
-        private void OnAnimatorIK()
+        private void OnAnimatorIK(int layerIndex)
         {
             animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
             animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);

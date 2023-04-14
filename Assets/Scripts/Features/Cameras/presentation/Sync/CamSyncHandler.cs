@@ -32,7 +32,6 @@ namespace Features.Cameras.presentation.Sync
         // [SceneSubscription]
         private IDisposable HandleActiveCam() => matchStateRepository
             .GetMatchStateFlow()
-            .Do(_ => Debug.Log(""))
             .Select(GetCamType)
             .Subscribe(activeCameraRepository.SetActiveCamera);
 

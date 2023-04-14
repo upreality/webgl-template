@@ -14,7 +14,7 @@ namespace MirrorExample
         private void Start()
         {
             target = transform.parent;
-            transform.SetParent(null);
+            target.SetParent(null);
 
             if (!isCustomOffset)
                 offset = transform.position - target.position;

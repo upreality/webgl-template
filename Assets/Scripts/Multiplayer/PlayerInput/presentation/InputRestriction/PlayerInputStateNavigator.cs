@@ -9,13 +9,13 @@ using Zenject;
 
 namespace Multiplayer.PlayerInput.presentation.InputRestriction
 {
-    [SceneSubscriptionHandler]
+    // [SceneSubscriptionHandler]
     public class PlayerInputStateNavigator
     {
         [Inject] private IInputStateRepository inputStateRepository;
         private BehaviorSubject<List<IRestrictionSource>> sourcesFlow = new(new List<IRestrictionSource>());
 
-        [SceneSubscription]
+        // [SceneSubscription]
         public IDisposable HandleInputState() => sourcesFlow.Select(list =>
             list
                 .Select(source => source.GetInputState())

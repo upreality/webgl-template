@@ -8,13 +8,13 @@ using Zenject;
 
 namespace Multiplayer.Health.data
 {
-    [SceneSubscriptionHandler]
+    // [SceneSubscriptionHandler]
     public class PlayerDeathEventHandler
     {
         [Inject] private PlayerDeathEventUseCase deathEventUseCase;
         [Inject] private IPlayerLifecycleEventRepository lifecycleEventRepository;
 
-        [SceneSubscription]
+        // [SceneSubscription]
         private IDisposable HandleDeathEvent() => deathEventUseCase
             .GetDeathEventFlow()
             .Subscribe(_ =>

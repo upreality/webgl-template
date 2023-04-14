@@ -8,13 +8,13 @@ using Zenject;
 
 namespace Multiplayer.Health.data
 {
-    [SceneSubscriptionHandler]
+    // [SceneSubscriptionHandler]
     public class RestoreHealthOnSpawnHandler
     {
         [Inject] private IPlayerLifecycleEventRepository lifecycleEventRepository;
         [Inject] private RestoreHealthUseCase restoreHealthUseCase;
 
-        [SceneSubscription]
+        // [SceneSubscription]
         private IDisposable HandleRestoreHealth() => lifecycleEventRepository
             .GetLifecycleEvents()
             .Where(lifecycleEvent => lifecycleEvent == PlayerLifecycleEvent.Spawned)
