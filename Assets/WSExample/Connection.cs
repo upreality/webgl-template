@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ModestTree;
 using NativeWebSocket;
 using UnityEngine;
 
@@ -16,20 +17,22 @@ namespace WSExample
 
         private WebSocket websocket;
 
-        
-            
-#if UNITY_WEBGL && !UNITY_EDITOR
-        private string URL => $"ws://{username}:{password}@{host}:{port}/{path}";
-#else
-        private string URL => $"ws://{host}:{port}/{path}";  
-#endif
+        private string URL
+        {
+            get
+            {
+                var root = port.IsEmpty() ? host : $"{host}:{port}";
+                return $"ws://{root}/{path}";
+            }
+        }
+
         private byte[] AuthData => Encoding.UTF8.GetBytes($"{username}:{password}");
         private string AuthHeader => "Basic " + Convert.ToBase64String(AuthData);
 
         private async void Start()
         {
             var headers = CreateHeaders();
-            
+
             websocket = new WebSocket(URL, headers);
 
             websocket.OnOpen += () => { Debug.Log("Connection open!"); };

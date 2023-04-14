@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/WSExample/wsexample2.unity
-    guid: e5682c925e697b24fb2bda1a9321bb21
   - enabled: 1
     path: Assets/WSExample/WebSocketExampleScene.unity
     guid: a800d2fe5d0db6845ade12c4fcfe5e7d
