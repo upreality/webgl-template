@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UniRx;
+using UnityEngine;
 using Utils.WebSocketClient.domain;
 using Zenject;
 
@@ -11,6 +12,7 @@ namespace Utils.WebSocketClient.data
         private const char MessageDelimiter = '$';
 
         [Inject] private WebSocketStorage webSocketStorage;
+        [Inject] private WSSettings settings;
 
         private readonly Dictionary<string, IDisposable> requests = new();
 
@@ -27,6 +29,9 @@ namespace Utils.WebSocketClient.data
 
             var requestId = Guid.NewGuid().ToString();
             var messageContent = $"{commandId}${commandParams}${requestId}";
+            if (settings.logMessages)
+                Debug.Log("Send Message " + messageContent);
+
             requests[requestId] = websocket.SendText(messageContent).ToObservable().Subscribe();
             return GetResponse(commandId, requestId);
         }
@@ -36,14 +41,14 @@ namespace Utils.WebSocketClient.data
             .Where(data => data.CommandId == commandId)
             .Do(data => requests.Remove(data.RequestId))
             .Select(data => data.Message)
-            .DoOnCancel(() => CancelRequest(requestId) )
+            .DoOnCancel(() => CancelRequest(requestId))
             .First();
 
         private void CancelRequest(string requestId)
         {
-            if(!requests.ContainsKey(requestId))
+            if (!requests.ContainsKey(requestId))
                 return;
-            
+
             requests[requestId].Dispose();
             requests.Remove(requestId);
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Core.Auth.domain;
 using Core.Auth.domain.model;
+using ParrelSync;
 using UniRx;
 using Zenject;
 #if YANDEX_SDK
@@ -27,7 +28,9 @@ namespace Core.Auth.presentation
 
         private AuthData GetLocalData()
         {
-            var playerId = localPlayerIdUseCase.GetOrCreate();
+            var playerId = ClonesManager.IsClone()
+                ? localPlayerIdUseCase.GeneratedPlayerId()
+                : localPlayerIdUseCase.GetOrCreate();
             return new AuthData
             {
                 Type = AuthType.LocalId,
