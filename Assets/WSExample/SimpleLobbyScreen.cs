@@ -9,7 +9,9 @@ namespace WSExample
 {
     public class SimpleLobbyScreen : MonoBehaviour
     {
-        [Inject(Id = IWSCommandsUseCase.AuthorizedInstance)] private IWSCommandsUseCase commandsUseCase;
+        [Inject(Id = IWSCommandsUseCase.AuthorizedInstance)]
+        private IWSCommandsUseCase commandsUseCase;
+
         [SerializeField] private RectTransform loader;
         [SerializeField] private Button enterLobbyButton;
         [SerializeField] private Button exitLobbyButton;
@@ -38,22 +40,16 @@ namespace WSExample
             exitLobbyButton.interactable = inLobby;
         }
 
-        private void JoinLobby()
-        {
-            commandsUseCase
-                .Request<long, long>(Commands.LobbyAction, EnterLobbyIntentCode)
-                .DistinctUntilChanged()
-                .Subscribe()
-                .AddTo(this);
-        }
+        private void JoinLobby() => commandsUseCase
+            .Request<long, long>(Commands.LobbyAction, EnterLobbyIntentCode)
+            .DistinctUntilChanged()
+            .Subscribe()
+            .AddTo(this);
 
-        private void LeaveLobby()
-        {
-            commandsUseCase
-                .Request<long, long>(Commands.LobbyAction, ExitLobbyIntentCode)
-                .DistinctUntilChanged()
-                .Subscribe()
-                .AddTo(this);
-        }
+        private void LeaveLobby() => commandsUseCase
+            .Request<long, long>(Commands.LobbyAction, ExitLobbyIntentCode)
+            .DistinctUntilChanged()
+            .Subscribe()
+            .AddTo(this);
     }
 }

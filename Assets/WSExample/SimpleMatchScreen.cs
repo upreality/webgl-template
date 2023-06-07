@@ -14,7 +14,7 @@ namespace WSExample
     {
         [Inject(Id = IWSCommandsUseCase.AuthorizedInstance)] private IWSCommandsUseCase commandsUseCase;
         [SerializeField] private RectTransform matchRoot;
-        [SerializeField] private TMP_Text userIdsText;
+        [SerializeField] private RectTransform lobbyRoot;
 
         private void Start()
         {
@@ -28,6 +28,7 @@ namespace WSExample
         {
             var isRealMatch = !matchData.id.IsEmpty();
             matchRoot.gameObject.SetActive(isRealMatch);
+            lobbyRoot.gameObject.SetActive(!isRealMatch);
             Debug.Log("Match state = " + isRealMatch);
             if (!isRealMatch)
                 return;

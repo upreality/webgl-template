@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: WS Local Settings
   m_EditorClassIdentifier: 
   protocol: 1
-  host: spring-boot-test.herokuapp.com
-  port: 
+  host: localhost
+  port: 8080
   path: websocket
   logConnection: 1
   logMessages: 1

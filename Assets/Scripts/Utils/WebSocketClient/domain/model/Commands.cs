@@ -7,13 +7,11 @@
         public const long LobbyAction = 2L;
         public const long LobbyState = 3L;
         public const long MatchState = 4L;
+        public const long Balance = 5L;
 
-        public const long TicTacState = 10L;
-        public const long TicTacCellUpdates = 11L;
-        public const long TicTacTurnUpdates = 12L;
-        public const long TicTacMakeTurn = 13L;
-        public const long TicTacFinished = 14L;
-        
-        public const long Balance = 15L;
+        public const long FightFinished = 6L;
+        public const long SetMovementData = 7L;
+        public const long SetAttackDirection = 8L;
+        public const long FightGameUpdate = 9L;
     }
 }

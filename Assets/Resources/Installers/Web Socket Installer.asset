@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6909988a254a42a5a182ba4dafed98, type: 3}
   m_Name: Web Socket Installer
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 4ab21ca1d6cba4146bac072e48f643bd, type: 2}
+  settings: {fileID: 11400000, guid: 42f5b846b77c0fc4ebdf39a679e1ecea, type: 2}
