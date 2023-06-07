@@ -6,15 +6,17 @@ namespace Core.Auth.domain
     public class LocalPlayerIdUseCase
     {
         [Inject] private ILocalPlayerIdRepository repository;
-        
+
         public string GetOrCreate()
         {
             if (repository.Fetch(out var playerId))
                 return playerId;
 
-            var generatedPlayerId = Guid.NewGuid().ToString();
-            repository.Set(generatedPlayerId);
-            return generatedPlayerId;
+            var generated = GeneratedPlayerId();
+            repository.Set(generated);
+            return generated;
         }
+
+        public string GeneratedPlayerId() => Guid.NewGuid().ToString();
     }
 }

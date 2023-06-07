@@ -58,7 +58,7 @@ namespace Utils.WebSocketClient.data
                 // Reading a plain text message
                 var message = Encoding.UTF8.GetString(bytes);
                 if (settings.logMessages)
-                    Debug.Log("Received OnMessage! (" + bytes.Length + " bytes) " + message);
+                    Debug.Log("Received Message (" + bytes.Length + " bytes) " + message);
 
                 messageHandler.HandleMessage(message);
             };
