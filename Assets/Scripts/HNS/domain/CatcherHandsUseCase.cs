@@ -1,10 +1,9 @@
 ﻿using System;
-using HNS.domain;
 using UnityEngine;
 
-namespace HNS.data
+namespace HNS.domain
 {
-    public class CatcherHandsRepository
+    public class CatcherHandsUseCase
     {
         private readonly ReactiveCompletableItemsMap<long, Vector3> hands = new();
 

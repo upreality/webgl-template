@@ -1,6 +1,7 @@
 ﻿using HNS.domain;
-using HNS.Model;
-using HNS.Player;
+using HNS.domain.Model;
+using HNS.domain.repositories;
+using HNS.presentation.Player;
 using UnityEngine;
 
 namespace HNS.data

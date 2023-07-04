@@ -1,13 +1,12 @@
 ﻿using System;
-using HNS.domain;
-using HNS.Model;
+using HNS.domain.Model;
 using UniRx;
 using UnityEngine;
 using Utils.WebSocketClient.domain;
 using Utils.WebSocketClient.domain.model;
 using Zenject;
 
-namespace HNS.Player
+namespace HNS.presentation.Player
 {
     public class PlayerMovementSender : MonoBehaviour
     {
@@ -23,7 +22,7 @@ namespace HNS.Player
 
         private void Start()
         {
-            if (!startSendingOnStart) 
+            if (!startSendingOnStart)
                 return;
             
             StartSending();

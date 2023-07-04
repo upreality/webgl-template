@@ -1,7 +1,6 @@
 ﻿using System;
-using HNS.data;
-using HNS.Model;
-using HNS.Player;
+using HNS.domain.Model;
+using HNS.domain.repositories;
 using UniRx;
 using Zenject;
 
@@ -9,18 +8,18 @@ namespace HNS.domain
 {
     public class HiderStateUseCase
     {
-        [Inject] private HNSSnapshotRepository snapshots;
-        [Inject] private CatcherHandsRepository hands;
-        [Inject] private HNSGameStateRepository states;
+        [Inject] private HNSPlayerSnapshotsUseCase playerSnapshotses;
+        [Inject] private CatcherHandsUseCase hands;
+        [Inject] private HNSGameStateUseCase gameStateUseCase;
         [Inject] private ISleepPlacesRepository sleepPlaces;
 
-        private IObservable<GameStates> GameStateFlow => states.GetStateFlow();
+        private IObservable<GameStates> GameStateFlow => gameStateUseCase.GetStateFlow();
 
         public IObservable<HiderState> GetStateFlow(long playerId) => GetSnapshotFlow(playerId)
             .CombineLatest(GameStateFlow, GetHiderState)
             .Switch();
 
-        private IObservable<HiderSnapshotItem> GetSnapshotFlow(long playerId) => snapshots
+        private IObservable<HiderSnapshotItem> GetSnapshotFlow(long playerId) => playerSnapshotses
             .GetHider(playerId, out var flow)
             ? flow
             : Observable.Empty<HiderSnapshotItem>();

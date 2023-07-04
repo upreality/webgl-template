@@ -1,7 +1,7 @@
-﻿using HNS.Model;
+﻿using HNS.domain.Model;
 using UnityEngine;
 
-namespace HNS.Player
+namespace HNS.presentation.Player
 {
     public class SleepPlaceController : MonoBehaviour
     {

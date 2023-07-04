@@ -1,9 +1,9 @@
 ﻿using System;
 using UniRx;
 using UnityEngine;
-using static HNS.Player.Hider.HiderAnimationController.HiderAnimationState;
+using static HNS.presentation.Player.Hider.HiderAnimationController.HiderAnimationState;
 
-namespace HNS.Player.Hider
+namespace HNS.presentation.Player.Hider
 {
     public class HiderAnimationController : MonoBehaviour
     {

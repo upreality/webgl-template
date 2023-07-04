@@ -1,9 +1,9 @@
 ﻿using System;
-using HNS.Model;
+using HNS.domain.Model;
 
 namespace HNS.domain
 {
-    public class HNSSnapshotUseCase
+    public class HNSPlayerSnapshotsUseCase
     {
         private ReactiveCompletableItemsMap<long, SeekerSnapshotItem> seekers = new();
         private ReactiveCompletableItemsMap<long, HiderSnapshotItem> hiders = new();

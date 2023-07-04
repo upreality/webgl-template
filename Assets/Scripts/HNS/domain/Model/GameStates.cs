@@ -1,4 +1,4 @@
-﻿namespace HNS.Model
+﻿namespace HNS.domain.Model
 {
     public enum GameStates
     {

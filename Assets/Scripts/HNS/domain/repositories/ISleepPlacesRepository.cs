@@ -1,6 +1,6 @@
-﻿using HNS.Model;
+﻿using HNS.domain.Model;
 
-namespace HNS.domain
+namespace HNS.domain.repositories
 {
     public interface ISleepPlacesRepository
     {

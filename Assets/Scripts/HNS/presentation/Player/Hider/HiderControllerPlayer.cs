@@ -1,25 +1,21 @@
 ﻿using System;
 using Core.Auth.domain;
-using HNS.data;
 using HNS.domain;
-using HNS.Model;
-using HNS.Player;
+using HNS.domain.Model;
 using SUPERCharacter;
 using UniRx;
 using UnityEngine;
-using UnityEngine.AI;
 using Utils.WebSocketClient.domain;
 using Utils.WebSocketClient.domain.model;
 using Zenject;
-using Random = UnityEngine.Random;
 
-namespace HNS
+namespace HNS.presentation.Player.Hider
 {
     public class HiderControllerPlayer : MonoBehaviour
     {
         [Inject(Id = IWSCommandsUseCase.AuthorizedInstance)]
         private IWSCommandsUseCase commandsUseCase;
-        [Inject] private HNSSnapshotRepository snapshots;
+        [Inject] private HNSPlayerSnapshotsUseCase snapshots;
         [Inject] private IAuthRepository authRepository;
 
         [SerializeField]

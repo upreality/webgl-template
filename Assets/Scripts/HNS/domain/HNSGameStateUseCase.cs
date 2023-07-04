@@ -1,11 +1,11 @@
 ﻿using System;
-using HNS.Model;
+using HNS.domain.Model;
 using UniRx;
 using Zenject;
 
-namespace HNS.data
+namespace HNS.domain
 {
-    public class HNSGameStateRepository: IInitializable
+    public class HNSGameStateUseCase: IInitializable
     {
         private ISubject<GameStates> stateSubject;
 
@@ -20,6 +20,6 @@ namespace HNS.data
         
         public void Complete() => stateSubject.OnCompleted();
 
-        public IObservable<GameStates> GetStateFlow() => stateSubject;
+        public IObservable<GameStates> GetStateFlow() => stateSubject.DistinctUntilChanged();
     }
 }

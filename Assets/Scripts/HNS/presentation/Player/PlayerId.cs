@@ -2,7 +2,7 @@
 using UniRx;
 using UnityEngine;
 
-namespace HNS.Player
+namespace HNS.presentation.Player
 {
     public class PlayerIdProvider: MonoBehaviour
     {
