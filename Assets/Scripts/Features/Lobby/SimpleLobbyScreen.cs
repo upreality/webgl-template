@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils.WebSocketClient.domain;
@@ -16,6 +17,11 @@ namespace WSExample
 
         private const long EnterLobbyIntentCode = 0L;
         private const long ExitLobbyIntentCode = 1L;
+
+        private void Awake()
+        {
+            HandleLobbyState(0L);
+        }
 
         private void Start()
         {

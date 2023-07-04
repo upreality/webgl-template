@@ -1,0 +1,23 @@
+{
+    "name": "HNS",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:7128b148f9da4d940be861ef70583a54",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+        "GUID:a82a5a91a9de16e4790bb3ac43bb1f46",
+        "GUID:210e77566d0cf104c86869e546aede63",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:624ab95ec9f9e5644a6f9a60fc366bbf",
+        "GUID:1f2c6cc943519e044a55a0ccbeb28e10"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
