@@ -1,5 +1,5 @@
 ﻿using System;
-using HNS.domain.Model;
+using HNS.domain.model;
 using HNS.domain.repositories;
 using UniRx;
 using Zenject;
@@ -8,7 +8,7 @@ namespace HNS.domain
 {
     public class HiderStateUseCase
     {
-        [Inject] private HNSPlayerSnapshotsUseCase playerSnapshotses;
+        [Inject] private HNSPlayerSnapshotsUseCase playerSnapshotsUseCase;
         [Inject] private CatcherHandsUseCase hands;
         [Inject] private HNSGameStateUseCase gameStateUseCase;
         [Inject] private ISleepPlacesRepository sleepPlaces;
@@ -19,7 +19,7 @@ namespace HNS.domain
             .CombineLatest(GameStateFlow, GetHiderState)
             .Switch();
 
-        private IObservable<HiderSnapshotItem> GetSnapshotFlow(long playerId) => playerSnapshotses
+        private IObservable<HiderSnapshotItem> GetSnapshotFlow(long playerId) => playerSnapshotsUseCase
             .GetHider(playerId, out var flow)
             ? flow
             : Observable.Empty<HiderSnapshotItem>();
@@ -68,14 +68,13 @@ namespace HNS.domain
                 return GetHiderState(item, HiderBehavior.Pending);
 
             var catcherId = item.catcherId;
-            if (catcherId != null)
+            if (catcherId.HasValue)
                 return GetCatchedHiderState(item, catcherId.Value);
 
             var sleepPlaceId = item.sleepPlaceId;
-            if (sleepPlaceId != null)
-                return GetSleepingHiderState(item, sleepPlaceId.Value);
-            
-            return GetHiderState(item, HiderBehavior.Hiding);
+            return sleepPlaceId.HasValue
+                ? GetSleepingHiderState(item, sleepPlaceId.Value) 
+                : GetHiderState(item, HiderBehavior.Hiding);
         }
     }
 }

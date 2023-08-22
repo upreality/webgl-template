@@ -1,9 +1,9 @@
 ﻿using System;
-using HNS.domain.Model;
+using HNS.domain.model;
 using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
-using static HNS.presentation.Player.Hider.HiderAnimationController;
+using static HNS.presentation.Player.Hider.HiderAnimationStateController;
 
 namespace HNS.presentation.Player
 {
@@ -26,6 +26,9 @@ namespace HNS.presentation.Player
 
         private IDisposable movementDisposable = Disposable.Empty;
 
+        public float Velocity => rb.velocity.magnitude;
+        public bool Grounded => agent.isOnNavMesh;
+        
         public bool MovementAllowed
         {
             set
@@ -55,17 +58,6 @@ namespace HNS.presentation.Player
         
         private void UpdateRigidbody() => rb.isKinematic = agent.isOnNavMesh && physicsEnabled;
 
-        private HiderAnimationState GroundedHidingAnimationState => rb.velocity.magnitude > 0.1f
-            ? HiderAnimationState.Running
-            : HiderAnimationState.Idle;
-
-        public HiderAnimationState HidingAnimationState => agent.isOnNavMesh
-            ? GroundedHidingAnimationState
-            : HiderAnimationState.Falling;
-
-        public HiderAnimationState IdleAnimationState => agent.isOnNavMesh
-            ? HiderAnimationState.Idle
-            : HiderAnimationState.Falling;
 
         private void DoFlyTo(TransformSnapshot pos)
         {
@@ -89,6 +81,13 @@ namespace HNS.presentation.Player
         {
             var initialState = GetMovementState(pos.Pos);
             observer.OnNext(initialState);
+
+            if (initialState == MovementState.Reached)
+            {
+                var targetRot = Quaternion.Euler(0, pos.r, 0);
+                viewRoot.rotation = targetRot;
+                viewRoot.position = pos.Pos;
+            }
 
             if (initialState != MovementState.Moving)
             {
@@ -145,13 +144,6 @@ namespace HNS.presentation.Player
         {
             IDisposable Subscribe(IObserver<MovementState> observer) => RunTo(observer, pos);
             return Observable.Create((Func<IObserver<MovementState>, IDisposable>)Subscribe);
-        }
-
-        public enum MovementState
-        {
-            Moving,
-            Reached,
-            MovementDisabled
         }
     }
 }

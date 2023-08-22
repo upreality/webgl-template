@@ -30,7 +30,7 @@ namespace HNS.domain
             return createdSubject;
         }
 
-        private void RemoveAndCompleteUnsafe(TKey key)
+        private void CompleteAndRemoveUnsafe(TKey key)
         {
             var subject = items[key];
             subject.OnCompleted();
@@ -70,13 +70,13 @@ namespace HNS.domain
             if (!items.ContainsKey(key))
                 return false;
 
-            RemoveAndCompleteUnsafe(key);
+            CompleteAndRemoveUnsafe(key);
             return true;
         }
 
         public void Clear()
         {
-            items.Keys.ToList().ForEach(RemoveAndCompleteUnsafe);
+            items.Keys.ToList().ForEach(CompleteAndRemoveUnsafe);
             items.Clear();
         }
     }

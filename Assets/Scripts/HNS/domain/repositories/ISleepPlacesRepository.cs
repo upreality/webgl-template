@@ -1,4 +1,4 @@
-﻿using HNS.domain.Model;
+﻿using HNS.domain.model;
 
 namespace HNS.domain.repositories
 {

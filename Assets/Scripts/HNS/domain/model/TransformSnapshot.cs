@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace HNS.domain.Model
+namespace HNS.domain.model
 {
     [Serializable]
     public class TransformSnapshot

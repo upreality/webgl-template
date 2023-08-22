@@ -1,11 +1,10 @@
 ﻿using System;
 using HNS.domain;
-using HNS.domain.Model;
+using HNS.domain.model;
 using UniRx;
 using UnityEngine;
 using Zenject;
-using static HNS.presentation.Player.Hider.HiderAnimationController;
-using static HNS.presentation.Player.HNSCharacterController;
+using static HNS.presentation.Player.Hider.HiderAnimationStateController;
 
 namespace HNS.presentation.Player.Hider
 {
@@ -16,8 +15,7 @@ namespace HNS.presentation.Player.Hider
 
         [SerializeField] private PlayerIdProvider idProvider;
 
-
-        private HiderAnimationController animationController;
+        private HiderAnimationStateController animationController;
         private HNSCharacterController characterController;
 
         private bool initialized;
@@ -31,7 +29,7 @@ namespace HNS.presentation.Player.Hider
             var spawnedCharacter = Instantiate(view, transform);
             var spawnedTransform = spawnedCharacter.transform;
             spawnedTransform.localPosition = Vector3.zero;
-            animationController = spawnedTransform.GetComponent<HiderAnimationController>();
+            animationController = spawnedTransform.GetComponent<HiderAnimationStateController>();
             transform.ApplySnapshot(state.Transform);
             initialized = true;
         }
@@ -50,13 +48,13 @@ namespace HNS.presentation.Player.Hider
 
         private IObservable<Unit> HandleHidingState(TransformSnapshot targetPos) => characterController
             .RunTo(targetPos)
-            .Select(_ => characterController.HidingAnimationState)
+            .Select(_ => characterController.GetHidingAnimationState())
             .Do(animationController.SetAnimationState)
             .AsUnitObservable();
 
         private IObservable<Unit> HandlePendingState() => Observable
             .EveryUpdate()
-            .Select(_ => characterController.IdleAnimationState)
+            .Select(_ => characterController.GetIdleAnimationState())
             .Do(animationController.SetAnimationState)
             .AsUnitObservable();
 
@@ -89,5 +87,26 @@ namespace HNS.presentation.Player.Hider
             StopAllCoroutines();
             Destroy(gameObject);
         }
+    }
+
+    internal static class CharacterControllerExtensions
+    {
+        private static HiderAnimationState GetGroundedHidingAnimationState(
+            this HNSCharacterController controller
+        ) => controller.Velocity > 0.1f
+            ? HiderAnimationState.Running
+            : HiderAnimationState.Idle;
+
+        internal static HiderAnimationState GetHidingAnimationState(
+            this HNSCharacterController controller
+        ) => controller.Grounded
+            ? controller.GetGroundedHidingAnimationState()
+            : HiderAnimationState.Falling;
+        
+        internal static HiderAnimationState GetIdleAnimationState(
+            this HNSCharacterController controller
+        ) => controller.Grounded
+            ? HiderAnimationState.Idle
+            : HiderAnimationState.Falling;
     }
 }

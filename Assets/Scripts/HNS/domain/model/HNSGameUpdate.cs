@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HNS.domain.Model
+namespace HNS.domain.model
 {
     [Serializable]
     public struct HNSGameUpdate

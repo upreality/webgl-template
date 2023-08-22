@@ -1,5 +1,5 @@
 ﻿using System;
-using HNS.domain.Model;
+using HNS.domain.model;
 using UniRx;
 using UnityEngine;
 using Utils.WebSocketClient.domain;

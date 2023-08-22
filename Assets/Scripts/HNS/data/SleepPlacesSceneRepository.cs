@@ -1,5 +1,5 @@
 ﻿using HNS.domain;
-using HNS.domain.Model;
+using HNS.domain.model;
 using HNS.domain.repositories;
 using HNS.presentation.Player;
 using UnityEngine;

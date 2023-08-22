@@ -1,11 +1,11 @@
 ﻿using System;
 using UniRx;
 using UnityEngine;
-using static HNS.presentation.Player.Hider.HiderAnimationController.HiderAnimationState;
+using static HNS.presentation.Player.Hider.HiderAnimationStateController.HiderAnimationState;
 
 namespace HNS.presentation.Player.Hider
 {
-    public class HiderAnimationController : MonoBehaviour
+    public class HiderAnimationStateController : MonoBehaviour
     {
         [SerializeField] private Animator target;
 

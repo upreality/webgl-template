@@ -1,4 +1,4 @@
-﻿using HNS.domain.Model;
+﻿using HNS.domain.model;
 using UnityEngine;
 
 namespace HNS.presentation.Player

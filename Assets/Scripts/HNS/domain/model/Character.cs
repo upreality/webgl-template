@@ -1,4 +1,4 @@
-﻿namespace HNS.domain.Model
+﻿namespace HNS.domain.model
 {
     public enum Character
     {

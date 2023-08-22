@@ -12,14 +12,18 @@ namespace HNS._di
         public override void InstallBindings()
         {
             base.InstallBindings();
+            Container
+                .BindInterfacesAndSelfTo<SleepPlacesSceneRepository>()
+                .FromInstance(sleepPlacesSceneRepository)
+                .AsSingle();
+
+            
             Container.Bind<HNSGameStateUseCase>().AsSingle();
             Container.BindInterfacesAndSelfTo<CatcherHandsUseCase>().AsSingle();
             Container.BindInterfacesAndSelfTo<HNSPlayerSnapshotsUseCase>().AsSingle();
-            Container.BindInterfacesAndSelfTo<SleepPlacesSceneRepository>().FromInstance(sleepPlacesSceneRepository)
-                .AsSingle();
-
             Container.BindInterfacesAndSelfTo<HNSPlayerSnapshotsUseCase>().AsSingle();
             Container.BindInterfacesAndSelfTo<HiderStateUseCase>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerHiderStateUseCase>().AsSingle();
         }
     }
 }
